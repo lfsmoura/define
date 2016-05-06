@@ -1,0 +1,27 @@
+{
+  "name": "definition",
+  "version": "0.1.0",
+  "description": "define or be defined",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/web.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "board-game",
+    "friends",
+    "quiz"
+  ],
+  "author": "Leo Moura",
+  "license": "ISC",
+  "dependencies": {
+    "bell": "^7.6.1",
+    "bootstrap": "^4.0.0-alpha.2",
+    "hapi": "^13.3.0",
+    "hapi-auth-cookie": "^6.1.1",
+    "inert": "^3.2.1",
+    "pg": "^4.5.5",
+    "react": "^15.0.2",
+    "sequelize": "^3.22.0"
+  }
+}
