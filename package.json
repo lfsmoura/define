@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/web.js",
-    "build": "bash build.sh && webpack",
+    "build": "bash build.sh && webpack --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -25,6 +25,7 @@
     "css-loader": "^0.23.1",
     "hapi": "^13.3.0",
     "hapi-auth-cookie": "^6.1.1",
+    "hapi-sequelize": "^2.2.4",
     "inert": "^3.2.1",
     "pg": "^4.5.5",
     "react": "^15.0.2",
