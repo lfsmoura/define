@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/web.js",
-    "build": ". build.sh && webpack",
+    "build": "bash build.sh && webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -32,5 +32,8 @@
     "sequelize": "^3.22.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0"
+  },
+  "engines": {
+    "node": "ˆ6.0.0"
   }
 }
