@@ -58,7 +58,15 @@ server.register(
         db.sequelize.sync({ force: force }).then(function() {
         console.log('models synced');
 
-        // TODO configure bell
+        // bell
+        server.auth.strategy('facebook', 'bell', {
+            provider: 'facebook',
+            //location: 'http://localhost:8000',
+            password: config.COOKIE_PASSWORD,
+            clientId: config.FACEBOOK_CLIENT_ID,
+            clientSecret: config.FACEBOOK_CLIENT_SECRET,
+            isSecure: false     // required if not using HTTPS especially if developing locally
+        });
 
         // session
         const cache = server.cache({ segment: 'sessions', expiresIn: 3 * 24 * 60 * 60 * 1000 });
