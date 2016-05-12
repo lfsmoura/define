@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
 
 const defineReducer = (state, action) => {
-  state = state || {};
+  state = state || { users: [] };
   if (action.type === 'SET-USER') {
       return {
         user: action.user,

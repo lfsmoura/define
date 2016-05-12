@@ -25,7 +25,24 @@ module.exports = [{
       });
     }
   }
-}, {
+},{
+  method: 'GET',
+  path: '/login/fake',
+  handler(request, reply) {
+    const account = {
+      displayName: 'Fake',
+      id: '1082120015179174'
+    };
+    const sid = String(++uuid);
+    request.server.app.cache.set(sid, { account }, 0, (err) => {
+      if (err) {
+          reply(err);
+      }
+      request.cookieAuth.set({ sid: sid });
+      return reply.redirect('/');
+    });
+  }
+},{
   method: 'GET',
   path: '/logout',
   handler(request, reply) {
