@@ -17,13 +17,23 @@ const render = () => {
 defineStore.subscribe(render);
 render();
 
+var socket = io();
 // get user information
 let req = new XMLHttpRequest();
 req.addEventListener("load", () => {
+  const user = JSON.parse(req.response);
   defineStore.dispatch({
     type: "SET-USER",
-    user: JSON.parse(req.response)
-  })
+    user
+  });
+  socket.emit('join', user);
 });
 req.open("GET", "/session");
 req.send();
+
+socket.on('join', (user) => {
+  defineStore.dispatch({
+    type: "ADD-USER",
+    user: user
+  });
+});

@@ -16,6 +16,15 @@ function loadRoutes(server) {
   });
 }
 
+var io = require('socket.io')(server.listener);
+
+io.on('connection', function (socket) {
+    socket.on('join', function (user) {
+        socket.broadcast.emit('join', user);
+    });
+});
+
+
 server.register(
     [
       require('inert'),
