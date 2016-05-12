@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node src/web.js",
     "build": "bash build.sh && webpack --progress",
+    "buildrun": "npm run build && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -30,6 +31,7 @@
     "pg": "^4.5.5",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
+    "redux": "^3.5.2",
     "sequelize": "^3.22.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0"

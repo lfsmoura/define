@@ -1,17 +1,29 @@
-require("../css/main.css");
+//require("../css/main.css");
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-function getUserImageUrl(id) {
-  return `http://graph.facebook.com/${id}/picture?type=large`;
-}
+import UserBox from './UserBox.js';
+
+import { defineStore } from './DefineStore.js';
 
 const render = () => {
     ReactDOM.render(<div>
-        <a href="/login/facebook"> Login com facebook </a>
+        <UserBox user={defineStore.getState().user} />
       </div>,
         document.getElementById('main'));
 };
 
+defineStore.subscribe(render);
 render();
+
+// get user information
+let req = new XMLHttpRequest();
+req.addEventListener("load", () => {
+  defineStore.dispatch({
+    type: "SET-USER",
+    user: JSON.parse(req.response)
+  })
+});
+req.open("GET", "/session");
+req.send();

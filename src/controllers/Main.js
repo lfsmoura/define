@@ -6,6 +6,12 @@ module.exports = [{
     }
   },{
     method: 'GET',
+    path: '/session',
+    handler: function (request, reply) {
+      reply(request.auth.credentials);
+    }
+  },{
+    method: 'GET',
     path: '/{filename*}',
     handler: {
       file: function (request) {
