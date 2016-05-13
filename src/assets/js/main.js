@@ -9,11 +9,17 @@ import { defineStore } from './DefineStore.js';
 
 const render = () => {
   var users = defineStore.getState().users.map((user) => {
-    return (<UserBox user={user}/>);
+    return (<li key={`player-${user.id}`} className="list-group-item">
+        <UserBox user={user}/>
+      </li>);
   });
+  var logout = defineStore.getState().user ? (<a href="/logout">sair</a>) : '';
   ReactDOM.render((<div>
       <UserBox user={defineStore.getState().user} />
-      {users}
+      {logout}
+      <ul className="list-group">
+        {users}
+      </ul>
     </div>),
       document.getElementById('main'));
 };
@@ -36,6 +42,14 @@ req.open("GET", "/session");
 req.send();
 
 socket.on('join', (user) => {
+  defineStore.dispatch({
+    type: "ADD-USER",
+    user
+  });
+  socket.emit('iam', defineStore.getState().user);
+});
+
+socket.on('iam', (user) => {
   defineStore.dispatch({
     type: "ADD-USER",
     user

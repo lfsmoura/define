@@ -1,5 +1,9 @@
 import { createStore } from 'redux';
 
+function addUser(user, users) {
+
+}
+
 const defineReducer = (state, action) => {
   state = state || { users: [] };
   if (action.type === 'SET-USER') {
@@ -10,7 +14,7 @@ const defineReducer = (state, action) => {
   } else if (action.type === 'ADD-USER') {
     return {
       user: state.user,
-      users: state.users.concat(action.user)
+      users: state.users.filter((u) => u.id != action.user.id).concat(action.user)
     };
   }
   return state;

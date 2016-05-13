@@ -31,7 +31,7 @@ module.exports = [{
   handler(request, reply) {
     const account = {
       displayName: 'Fake',
-      id: '1082120015179174'
+      id: '100002403759483'
     };
     const sid = String(++uuid);
     request.server.app.cache.set(sid, { account }, 0, (err) => {

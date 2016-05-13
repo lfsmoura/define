@@ -20,7 +20,11 @@ var io = require('socket.io')(server.listener);
 
 io.on('connection', function (socket) {
     socket.on('join', function (user) {
-        socket.broadcast.emit('join', user);
+        io.emit('join', user);
+    });
+
+    socket.on('iam', function (user) {
+        socket.broadcast.emit('iam', user);
     });
 });
 
