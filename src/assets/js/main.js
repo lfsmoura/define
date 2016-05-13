@@ -13,10 +13,9 @@ const render = () => {
         <UserBox user={user}/>
       </li>);
   });
-  var logout = defineStore.getState().user ? (<a href="/logout">sair</a>) : '';
   ReactDOM.render((<div>
       <UserBox user={defineStore.getState().user} />
-      {logout}
+      <a href="/logout">sair</a>
       <ul className="list-group">
         {users}
       </ul>

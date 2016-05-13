@@ -85,10 +85,11 @@ server.register(
         const cache = server.cache({ segment: 'sessions', expiresIn: 3 * 24 * 60 * 60 * 1000 });
         server.app.cache = cache;
 
-        server.auth.strategy('session', 'cookie', 'try', {
+        server.auth.strategy('session', 'cookie', true, {
             password: config.COOKIE_PASSWORD,
             cookie: 'sid-example',
             isSecure: false,
+            redirectTo: '/login',
             validateFunc: function (request, session, callback) {
                 cache.get(session.sid, (err, cached) => {
                     if (err) {

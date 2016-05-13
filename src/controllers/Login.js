@@ -49,4 +49,14 @@ module.exports = [{
     request.cookieAuth.clear();
     return reply.redirect('/');
   }
+},{
+  method: 'GET',
+  path: '/login',
+  config: {
+    handler(request, reply) {
+      return reply('<a href="/login/facebook"> Login com facebook </a>');
+    },
+    auth: { mode: 'try' },
+    plugins: { 'hapi-auth-cookie': { redirectTo: false } }
+  }
 }];
