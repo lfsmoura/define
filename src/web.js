@@ -35,44 +35,12 @@ io.on('connection', function (socket) {
 server.register(
     [
       require('inert'),
-      {
-          register: require('hapi-sequelize'),
-          options: {
-              uri: config.DATABASE_URL,
-              models: './src/models/**/*.js',
-              sequelize: {
-                  define: {
-                      underscoredAll: true
-                  }
-              }
-          }
-      },
       require('bell'),
       require('hapi-auth-cookie')
     ], function(err) {
         if (err) {
             console.error('failed to load plugin');
         }
-
-        server.ext('onPreHandler', function(modelCollections) {
-            return function(request, reply) {
-                request.models = modelCollections;
-                reply.continue();
-            }
-        }(server.plugins['hapi-sequelize'].db.sequelize.models));
-
-        // models
-        var db = server.plugins['hapi-sequelize'].db;
-
-        for (var attr in db.sequelize.models) {
-          if (db.sequelize.models[attr] && db.sequelize.models[attr].associate) {
-              db.sequelize.models[attr].associate(db.sequelize.models);
-          }
-        }
-
-        var force = config.FORCE_SYNC;
-        db.sequelize.sync({ force: force }).then(function() {
-        console.log('models synced');
 
         // bell
         server.auth.strategy('facebook', 'bell', {
@@ -93,7 +61,7 @@ server.register(
             cookie: 'sid-example',
             isSecure: false,
             redirectTo: '/login',
-            validateFunc: function (request, session, callback) {
+            validateFunc(request, session, callback) {
                 cache.get(session.sid, (err, cached) => {
                     if (err) {
                         return callback(err, false);
@@ -117,6 +85,4 @@ server.register(
             }
             console.log('Server running at:', server.info.uri);
         });
-    }
-);
 });
