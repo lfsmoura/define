@@ -28,19 +28,23 @@ module.exports = [{
 },{
   method: 'GET',
   path: '/login/fake',
-  handler(request, reply) {
-    const account = {
-      displayName: 'Fake',
-      id: '100002403759483'
-    };
-    const sid = String(++uuid);
-    request.server.app.cache.set(sid, { account }, 0, (err) => {
-      if (err) {
-          reply(err);
+  config: {
+      auth: { mode: 'try' },
+      plugins: { 'hapi-auth-cookie': { redirectTo: false } },
+      handler(request, reply) {
+        const account = {
+          displayName: 'Fake',
+          id: '100002403759483'
+        };
+        const sid = String(++uuid);
+        request.server.app.cache.set(sid, { account }, 0, (err) => {
+          if (err) {
+              reply(err);
+          }
+          request.cookieAuth.set({ sid: sid });
+          return reply.redirect('/');
+        });
       }
-      request.cookieAuth.set({ sid: sid });
-      return reply.redirect('/');
-    });
   }
 },{
   method: 'GET',
