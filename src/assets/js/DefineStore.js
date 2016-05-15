@@ -5,24 +5,27 @@ function addUser(user, users) {
 }
 
 const defineReducer = (state, action) => {
-  state = state || { user: {}, users: [] };
+  state = state || { user: {}, users: [], game: {} };
   if (action.type === 'SET-USER') {
       return {
         user: action.user,
         users: state.users,
-        state: state.id
+        game: state.game
       };
   } else if (action.type === 'ADD-USER') {
     return {
       user: state.user,
       users: state.users.filter((u) => u.id != action.user.id).concat(action.user),
-      gameId: state.id
+      game: state.game
     };
   } else if (action.type === 'SET-GAME') {
     return {
       user: state.user,
       users: state.users,
-      gameId: action.id
+      game: {
+          id: action.id,
+          admin: action.admin
+      }
     }
   }
   return state;

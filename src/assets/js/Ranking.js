@@ -13,8 +13,11 @@ export default class Ranking extends React.Component {
           <UserBox user={user}/>
         </li>);
     });
-    return (<ul className="list-group">
-          {userList}
-        </ul>);
+    return (<div>
+        <h2>Ranking</h2>
+        <ul className="list-group">
+            {userList}
+          </ul>
+      </div>);
   }
 }

@@ -33,7 +33,8 @@ export function createGame() {
   socket.emit('creategame', {}, function(id) {
     defineStore.dispatch({
       type: "SET-GAME",
-      id
+      id,
+      admin: true
     });
   });
 }
