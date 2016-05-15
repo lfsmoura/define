@@ -28,7 +28,10 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('iam', user);
     });
 
-    socket.on('creategame', (ignore, fn) => { fn(gameId++) });
+    socket.on('creategame', (user, fn) => {
+        socket.broadcast.emit('newgame', gameId);
+        fn(gameId++);
+    });
 });
 
 

@@ -1,6 +1,6 @@
 import { defineStore } from './DefineStore.js';
 
-var socket = io();
+export var socket = io();
 // get user information
 let req = new XMLHttpRequest();
 req.addEventListener("load", () => {
@@ -37,3 +37,10 @@ export function createGame() {
     });
   });
 }
+
+socket.on('newgame', (id) => {
+    defineStore.dispatch({
+      type: "SET-GAME",
+      id
+    });
+});
