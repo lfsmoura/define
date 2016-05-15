@@ -19,29 +19,31 @@ socket.on('join', (user) => {
     type: "ADD-USER",
     user
   });
-  socket.emit('iam', defineStore.getState().user);
+  socket.emit('iam', defineStore.getState());
 });
 
-socket.on('iam', (user) => {
+socket.on('iam', (state) => {
+  const user = state.user;
   defineStore.dispatch({
     type: "ADD-USER",
     user
   });
+  if (state.game.id) {
+    defineStore.dispatch({
+      type: "SET-GAME",
+      game: state.game
+    });
+  }
 });
 
 export function createGame() {
-  socket.emit('creategame', {}, function(id) {
-    defineStore.dispatch({
-      type: "SET-GAME",
-      id,
-      admin: true
-    });
-  });
+  const user = defineStore.getState().user;
+  socket.emit('creategame', user);
 }
 
-socket.on('newgame', (id) => {
+socket.on('newgame', (game) => {
     defineStore.dispatch({
       type: "SET-GAME",
-      id
+      game
     });
 });

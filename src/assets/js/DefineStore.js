@@ -22,10 +22,7 @@ const defineReducer = (state, action) => {
     return {
       user: state.user,
       users: state.users,
-      game: {
-          id: action.id,
-          admin: action.admin
-      }
+      game: action.game
     }
   }
   return state;

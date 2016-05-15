@@ -14,16 +14,17 @@ export default class Index extends React.Component {
   }
 
   render() {
-    let gameId = defineStore.getState().game.id;
+    const state = defineStore.getState();
+    let gameId = state.game.id;
     let game = gameId ? `Jogo ${gameId}` :
         (<a onClick={createGame}>Criar jogo</a>);
 
     return (<div>
-        <UserBox user={defineStore.getState().user} />
-        {defineStore.getState().game.admin ? <Admin /> : <PlayerUI />}
+        <UserBox user={state.user} />
+        {state.game.admin === state.user.id ? <Admin /> : <PlayerUI />}
         <a href="/logout">sair</a> <span>{game}</span>
         <hr />
-        <Ranking users={defineStore.getState().users} />
+        <Ranking users={state.users} />
       </div>);
   }
 }

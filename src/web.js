@@ -24,13 +24,15 @@ io.on('connection', function (socket) {
         io.emit('join', user);
     });
 
-    socket.on('iam', function (user) {
-        socket.broadcast.emit('iam', user);
+    socket.on('iam', function (state) {
+        socket.broadcast.emit('iam', state);
     });
 
     socket.on('creategame', (user, fn) => {
-        socket.broadcast.emit('newgame', gameId);
-        fn(gameId++);
+        socket.emit('newgame', {
+          id: gameId++,
+          admin: user.id
+        });
     });
 });
 
