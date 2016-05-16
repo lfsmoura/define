@@ -20,10 +20,11 @@ export default class Index extends React.Component {
         (<a onClick={createGame}>Criar jogo</a>);
 
     return (<div>
-        <UserBox user={state.user} />
+        <div className="card">
+          <UserBox user={state.user} />
+          <a href="/logout">sair</a> <span>{game}</span>
+        </div>
         {state.game.admin === state.user.id ? <Admin /> : <PlayerUI />}
-        <a href="/logout">sair</a> <span>{game}</span>
-        <hr />
         <Ranking users={state.users} />
       </div>);
   }

@@ -34,6 +34,10 @@ io.on('connection', function (socket) {
           admin: user.id
         });
     });
+
+    socket.on('createquestion', (game) => {
+      socket.emit('newgame', game);
+    });
 });
 
 

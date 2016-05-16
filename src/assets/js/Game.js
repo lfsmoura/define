@@ -36,14 +36,18 @@ socket.on('iam', (state) => {
   }
 });
 
-export function createGame() {
-  const user = defineStore.getState().user;
-  socket.emit('creategame', user);
-}
-
 socket.on('newgame', (game) => {
     defineStore.dispatch({
       type: "SET-GAME",
       game
     });
 });
+
+export function createGame() {
+  const user = defineStore.getState().user;
+  socket.emit('creategame', user);
+}
+
+export function createQuestion(question) {
+  socket.emit('createquestion', Object.assign({}, defineStore.getState().game, { question }));
+}

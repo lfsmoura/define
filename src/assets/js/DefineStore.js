@@ -1,9 +1,5 @@
 import { createStore } from 'redux';
 
-function addUser(user, users) {
-
-}
-
 const defineReducer = (state, action) => {
   state = state || { user: {}, users: [], game: {} };
   if (action.type === 'SET-USER') {
@@ -23,7 +19,7 @@ const defineReducer = (state, action) => {
       user: state.user,
       users: state.users,
       game: action.game
-    }
+    };
   }
   return state;
 };
