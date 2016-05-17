@@ -1,6 +1,6 @@
 {
   "name": "definition",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "define or be defined",
   "main": "index.js",
   "scripts": {
@@ -35,6 +35,6 @@
     "webpack": "^1.13.0"
   },
   "engines": {
-    "node": "ˆ6.0.0"
+    "node": "6.0.0"
   }
 }
