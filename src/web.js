@@ -18,7 +18,7 @@ function loadRoutes(server) {
 
 var io = require('socket.io')(server.listener);
 
-let gameId = 0;
+let gameId = 1;
 io.on('connection', function (socket) {
     socket.on('join', function (user) {
         io.emit('join', user);
@@ -29,14 +29,14 @@ io.on('connection', function (socket) {
     });
 
     socket.on('creategame', (user, fn) => {
-        socket.emit('newgame', {
-          id: gameId++,
-          admin: user.id
-        });
+      io.emit('game', {
+        id: gameId++,
+        admin: user.id
+      });
     });
 
-    socket.on('createquestion', (game) => {
-      socket.emit('newgame', game);
+    socket.on('game', (game) => {
+      io.emit('game', game);
     });
 });
 

@@ -1,6 +1,9 @@
 import React from 'react';
 import { defineStore } from './DefineStore.js';
 import { createQuestion } from './Game.js';
+
+import Input from './Input.js';
+
 export default class Admin extends React.Component {
   constructor(props) {
     super(props);
@@ -12,22 +15,12 @@ export default class Admin extends React.Component {
     this.setState({ value: event.target.value });
   }
 
-  handleSubmit(event) {
-    createQuestion(this.state.value);
-    return false;
+  submitQuestion(value) {
+    createQuestion(value);
   }
 
   render() {
-      return <form onSubmit={this.handleSubmit.bind(this)}>
-        <fieldset className="form-group">
-        <label for="question">Question</label>
-        <input
-          id="question"
-          className="form-control"
-          type="text"
-          value={this.state.value}
-          onChange={this.handleChange.bind(this)} />
-          </fieldset>
-      </form>;
+
+      return <Input label="Question" onSubmit={this.submitQuestion.bind(this)} />;
   }
 }
