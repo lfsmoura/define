@@ -43,6 +43,13 @@ socket.on('game', (game) => {
     });
 });
 
+socket.on('answer', (answer) =>
+  defineStore.dispatch({
+    type: "SET-ANSWER",
+    answer
+  })
+);
+
 export function createGame() {
   const user = defineStore.getState().user;
   socket.emit('creategame', user);
@@ -50,4 +57,11 @@ export function createGame() {
 
 export function createQuestion(question) {
   socket.emit('game', Object.assign({}, defineStore.getState().game, { question }));
+}
+
+export function createAnswer(answer) {
+  socket.emit('answer', {
+    answer,
+    user: defineStore.getState().user
+  });
 }

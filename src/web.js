@@ -31,12 +31,17 @@ io.on('connection', function (socket) {
     socket.on('creategame', (user, fn) => {
       io.emit('game', {
         id: gameId++,
-        admin: user.id
+        admin: user.id,
+        answers: []
       });
     });
 
     socket.on('game', (game) => {
       io.emit('game', game);
+    });
+
+    socket.on('answer', (answer) => {
+      io.emit('answer', answer);
     });
 });
 

@@ -25,7 +25,7 @@ export default class Index extends React.Component {
           <a href="/logout">sair</a> <span>{game}</span>
         </div>
         {state.game.admin === state.user.id ? <Admin /> : <PlayerUI />}
-        <Ranking users={state.users} />
+        {state.game.id ? <Ranking users={state.users} /> : ''}
       </div>);
   }
 }
