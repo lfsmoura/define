@@ -16,11 +16,11 @@ export default class PlayerUI extends React.Component {
 
   render() {
     const state = defineStore.getState();
-    var answerList = state.game.answers.map((answer) => {
-      return (<li key={`answer-${answer.userId}`} className="list-group-item">
+    var answerList = state.game.answers
+      .filter((answer) => answer.user.id === state.user.id)
+      .map((answer) => <li key={`answer-${answer.userId}`} className="list-group-item">
           {answer.answer}
         </li>);
-    });
     if (state.game.id) {
       return <div>
         {state.game.question ? <h2>{state.game.question}</h2> : ''}

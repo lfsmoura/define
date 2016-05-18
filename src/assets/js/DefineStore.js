@@ -31,6 +31,14 @@ const defineReducer = (state, action) => {
         answers: state.game.answers.filter((a) => a.user.id != action.answer.user.id).concat(action.answer)
       }
     };
+  } else if (action.type === 'ADD-POINT') {
+    const user = state.users.find((user) => user.id === action.user.id);
+    const newUser = Object.assign({}, user, { points: (user.points || 0) + action.points });
+    return {
+      user: state.user,
+      users: state.users.filter((user) => user.id !== action.user.id).concat([newUser]),
+      game: state.game
+    };
   }
   return state;
 };

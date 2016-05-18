@@ -15,6 +15,7 @@ export default class Index extends React.Component {
 
   render() {
     const state = defineStore.getState();
+    const isAdmin = state.game && state.game.admin === state.user.id;
     let gameId = state.game.id;
     let game = gameId ? `Jogo ${gameId}` :
         (<a onClick={createGame}>Criar jogo</a>);
@@ -24,8 +25,8 @@ export default class Index extends React.Component {
           <UserBox user={state.user} />
           <a href="/logout">sair</a> <span>{game}</span>
         </div>
-        {state.game.admin === state.user.id ? <Admin /> : <PlayerUI />}
-        {state.game.id ? <Ranking users={state.users} /> : ''}
+        {isAdmin ? <Admin /> : <PlayerUI />}
+        {state.game.id ? <Ranking admin={isAdmin} users={state.users} /> : ''}
       </div>);
   }
 }

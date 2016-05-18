@@ -43,6 +43,10 @@ io.on('connection', function (socket) {
     socket.on('answer', (answer) => {
       io.emit('answer', answer);
     });
+
+    socket.on('points', (points) => {
+      io.emit('points', points);
+    });
 });
 
 

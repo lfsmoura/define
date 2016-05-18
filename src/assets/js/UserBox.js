@@ -5,18 +5,23 @@ export default class UserBox extends React.Component {
     super(props);
   }
 
-  getUserImageUrl(id) {
-    // square < normal < large
-    return `http://graph.facebook.com/${id}/picture?type=square`;
+  getUserImage(id) {
+    if (id) {
+      // square < normal < large
+      return <img src={`http://graph.facebook.com/${id}/picture?type=square`} />;
+    } else {
+      return '-';
+    }
   }
 
   render() {
+    const user = this.props.user;
     return (<div className="row">
-      <div className="col-md-2">
-        <img src={this.getUserImageUrl(this.props.user.id)} />
+      <div className="col-xs-3">
+        {this.getUserImage(user.id)}
       </div>
-      <div className="col-md-10">
-        {this.props.user.displayName}
+      <div className="col-xs-9">
+        {user.displayName} {user.points ? `(${user.points})` : ''}
       </div>
       </div>);
   }
