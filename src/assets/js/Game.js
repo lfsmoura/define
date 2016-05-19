@@ -50,9 +50,11 @@ socket.on('answer', (answer) =>
   })
 );
 
-socket.on('points', (points) =>
-  defineStore.dispatch({ type: 'ADD-POINT', points: points.points, user: points.user })
-);
+socket.on('points', (points) => {
+  defineStore.dispatch({ type: 'ADD-POINT', points: points.points, user: points.user });
+  const user = defineStore.getState().user;
+  socket.emit('iam', Object.assign({}, user, { points: (user.points || 0) + points.points }));
+});
 
 export function createGame() {
   const user = defineStore.getState().user;

@@ -9,9 +9,11 @@ const defineReducer = (state, action) => {
         game: state.game
       };
   } else if (action.type === 'ADD-USER') {
+    const user = state.users.find((user) => user.id === action.user.id) || {};
     return {
       user: state.user,
-      users: state.users.filter((u) => u.id != action.user.id).concat(action.user),
+      // to keep score
+      users: state.users.filter((u) => u.id != action.user.id).concat(Object.assign(action.user, user)),
       game: state.game
     };
   } else if (action.type === 'SET-GAME') {
@@ -35,7 +37,7 @@ const defineReducer = (state, action) => {
     const user = state.users.find((user) => user.id === action.user.id);
     const newUser = Object.assign({}, user, { points: (user.points || 0) + action.points });
     return {
-      user: state.user,
+      user: (state.user.id === newUser.id) ? newUser: state.user,
       users: state.users.filter((user) => user.id !== action.user.id).concat([newUser]),
       game: state.game
     };
