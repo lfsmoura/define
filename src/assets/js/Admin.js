@@ -22,7 +22,7 @@ export default class Admin extends React.Component {
   render() {
     const state = defineStore.getState();
     var answerList = state.game.answers.map((answer) => {
-      return (<li key={`answer-${answer.userId}`} className="list-group-item row">
+      return (<li key={`answer-${answer.user.id}`} className="list-group-item row">
           <div className="col-md-2">
             <UserBox user={answer.user} />
           </div>
@@ -32,8 +32,9 @@ export default class Admin extends React.Component {
         </li>);
     });
     return <div>
-      {answerList}
       <Input label="Questão" onSubmit={this.submitQuestion.bind(this)} />
+      {state.game.question ? <h2>{state.game.question}</h2> : ''}
+      {answerList}
     </div>;
   }
 }

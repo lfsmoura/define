@@ -21,12 +21,12 @@ export default class Index extends React.Component {
         (<a onClick={createGame}>Criar jogo</a>);
 
     return (<div>
-        <div className="card">
+        {isAdmin ? <Admin /> : <PlayerUI />}
+        {state.game.id ? <Ranking admin={isAdmin} users={state.users} /> : ''}
+        <div className="card m-a-2 p-a-2">
           <UserBox user={state.user} />
           <a href="/logout">sair</a> <span>{game}</span>
         </div>
-        {isAdmin ? <Admin /> : <PlayerUI />}
-        {state.game.id ? <Ranking admin={isAdmin} users={state.users} /> : ''}
       </div>);
   }
 }
