@@ -1,4 +1,5 @@
 import { defineStore } from './DefineStore.js';
+import io from 'socket.io-client';
 
 export var socket = io();
 // get user information
@@ -52,8 +53,8 @@ socket.on('answer', (answer) =>
 
 socket.on('points', (points) => {
   defineStore.dispatch({ type: 'ADD-POINT', points: points.points, user: points.user });
-  const user = defineStore.getState().user;
-  socket.emit('iam', Object.assign({}, user, { points: (user.points || 0) + points.points }));
+  //const user = defineStore.getState().user;
+  //socket.emit('iam', Object.assign({}, user, { points: (user.points || 0) + points.points }));
 });
 
 export function createGame() {
