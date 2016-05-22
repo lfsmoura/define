@@ -1,5 +1,6 @@
 import { createStore } from 'redux';
 
+/*
 const defineReducer = (state, action) => {
   state = state || { user: {}, users: [], game: { answers: [] } };
   if (action.type === 'SET-USER') {
@@ -43,6 +44,7 @@ const defineReducer = (state, action) => {
     };
   }
   return state;
-};
-
-export var defineStore = createStore(defineReducer);
+};*/
+import { combineReducers } from 'redux'
+import * as reducers from './reducers/';
+export var defineStore = combineReducers(reducers);
