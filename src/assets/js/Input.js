@@ -18,7 +18,6 @@ export default class Input extends React.Component {
   }
 
   render() {
-
       return <form onSubmit={this.handleSubmit.bind(this)}>
         <fieldset className="form-group">
         <label for={this.props.label}>{this.props.label}</label>

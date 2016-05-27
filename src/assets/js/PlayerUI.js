@@ -3,21 +3,24 @@ import React from 'react';
 import { defineStore } from './DefineStore.js';
 import Input from './Input.js';
 
-import { createAnswer } from './Game.js';
-
 export default class PlayerUI extends React.Component {
   constructor(props) {
     super(props);
   }
 
   submitAnswer(answer) {
-    createAnswer(answer);
+    defineStore.dispatch({
+      type: 'SET-ANSWER',
+      answer: {
+        answer,
+        userId: this.props.user.id
+      }})
   }
 
   render() {
     const state = defineStore.getState();
     var answerList = state.game.answers
-      .filter((answer) => answer.user.id === state.user.id)
+      .filter((answer) => answer.userId === this.props.user.id)
       .map((answer) => <li key={`answer-${answer.userId}`} className="list-group-item">
           {answer.answer}
         </li>);

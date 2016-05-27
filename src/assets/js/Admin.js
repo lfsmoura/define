@@ -1,6 +1,5 @@
 import React from 'react';
 import { defineStore } from './DefineStore.js';
-import { createQuestion } from './Game.js';
 import UserBox from './UserBox.js';
 import Input from './Input.js';
 
@@ -16,15 +15,16 @@ export default class Admin extends React.Component {
   }
 
   submitQuestion(value) {
-    createQuestion(value);
+    defineStore.dispatch({ type: 'SET-QUESTION', question: value });
   }
 
   render() {
     const state = defineStore.getState();
     var answerList = state.game.answers.map((answer) => {
-      return (<li key={`answer-${answer.user.id}`} className="list-group-item row">
+      const user = state.users.find(u => u.id === answer.userId);
+      return (<li key={`answer-${user.id}`} className="list-group-item row">
           <div className="col-md-2">
-            <UserBox user={answer.user} />
+            <UserBox user={user} />
           </div>
           <div className="col-md-10">
             {answer.answer}

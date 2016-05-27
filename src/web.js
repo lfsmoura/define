@@ -19,35 +19,27 @@ function loadRoutes(server) {
 var io = require('socket.io')(server.listener);
 
 let gameId = 1;
-io.on('connection', function (socket) {
-    socket.on('join', function (user) {
-        io.emit('join', user);
+
+var globalize = (function() {
+  var state = {};
+  return function(socket) {
+    socket.on('join', function (ignore, cb) {
+      return cb(state);
     });
 
-    socket.on('iam', function (state) {
-        socket.broadcast.emit('iam', state);
+    socket.on('action', function (action) {
+        socket.emit('action', action);
+        socket.broadcast.emit('action', action);
     });
 
-    socket.on('creategame', (user, fn) => {
-      io.emit('game', {
-        id: gameId++,
-        admin: user.id,
-        answers: []
-      });
+    socket.on('state', function(newState) {
+      console.log('newState', socket.id, newState);
+      state = newState;
     });
+  }
+})();
 
-    socket.on('game', (game) => {
-      io.emit('game', game);
-    });
-
-    socket.on('answer', (answer) => {
-      io.emit('answer', answer);
-    });
-
-    socket.on('points', (points) => {
-      io.emit('points', points);
-    });
-});
+io.on('connection', globalize);
 
 
 server.register(

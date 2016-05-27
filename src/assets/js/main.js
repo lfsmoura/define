@@ -5,12 +5,11 @@ import ReactDOM from 'react-dom';
 import Index from './Index.js';
 
 import { defineStore } from './DefineStore.js';
-import { socket } from './Game.js';
+import { user } from './user.js'
 
 const render = () => {
-  ReactDOM.render(<Index/>,
+  ReactDOM.render(<Index user={user} />,
       document.getElementById('main'));
 };
 
 defineStore.subscribe(render);
-render();
