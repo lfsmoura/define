@@ -7,4 +7,6 @@ import { loadUser } from './user.js';
 
 import createGlobalStore from './globalState.js';
 
-export var defineStore = createGlobalStore({ reducer: combineReducers({ game, users }) }, loadUser);
+var room = +location.hash.substr(1) > 0 ? location.hash.substr(1) : undefined;
+
+export var defineStore = createGlobalStore({ room, reducer: combineReducers({ game, users }) }, loadUser);
