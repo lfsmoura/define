@@ -24,6 +24,7 @@
     "bell": "^7.6.1",
     "bootstrap": "^4.0.0-alpha.2",
     "css-loader": "^0.23.1",
+    "global-state": "^0.2.0",
     "hapi": "^13.3.0",
     "hapi-auth-cookie": "^6.1.1",
     "inert": "^3.2.1",
@@ -33,6 +34,10 @@
     "socket.io": "^1.4.6",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lfsmoura/global-state.git"
   },
   "engines": {
     "node": "6.0.0"

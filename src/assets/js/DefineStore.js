@@ -5,7 +5,7 @@ import users from './reducers/users.js';
 
 import { loadUser } from './user.js';
 
-import createGlobalStore from './globalState.js';
+import createGlobalStore from 'global-state-client';
 
 var room = +location.hash.substr(1) > 0 ? location.hash.substr(1) : undefined;
 
