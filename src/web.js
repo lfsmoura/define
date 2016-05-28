@@ -18,28 +18,26 @@ function loadRoutes(server) {
 
 var io = require('socket.io')(server.listener);
 
-let gameId = 1;
-
-var globalize = (function() {
+var setGlobalStore = function({ io, prefix = 'global' } = {}) {
   var state = {};
-  return function(socket) {
-    socket.on('join', function (ignore, cb) {
+
+  io.on('connection', (socket) => {
+    socket.on(`${prefix}.join`, function (ignore, cb) {
       return cb(state);
     });
 
-    socket.on('action', function (action) {
-        socket.emit('action', action);
-        socket.broadcast.emit('action', action);
+    socket.on(`${prefix}.action`, function (action) {
+        socket.emit(`${prefix}.action`, action);
+        socket.broadcast.emit(`${prefix}.action`, action);
     });
 
-    socket.on('state', function(newState) {
-      console.log('newState', socket.id, newState);
+    socket.on(`${prefix}.state`, function(newState) {
       state = newState;
     });
-  }
-})();
+  })
+};
 
-io.on('connection', globalize);
+setGlobalStore({ io });
 
 
 server.register(
